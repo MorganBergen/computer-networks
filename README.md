@@ -14,7 +14,7 @@
 
 ###  description
 
-an introduction to the principles used in communication networks is given.  topics include discussion used of communications networks, network traffic, network impairments, standards, layered reference models for organizing network functions.  local area network technology and protocols are discussed.  link, network, transport layer protocols, and security are introduced.  tcp/ip networks are stressed.  basic concepts of network performance evaluation and wireless communications are studied.  both analytical and simulation techniques are considered.
+an introduction to the principles used in communication networks is given.  topics include discussion used of communications networks, network traffic, network impairments, standards, layered reference models for organizing network functions.  local area network technology and protocols are discussed.  link, network, transport layer protocols, and security are introduced.  TCP/IP networks are stressed.  basic concepts of network performance evaluation and wireless communications are studied.  both analytical and simulation techniques are considered.
 
 ###  topics
 
@@ -26,10 +26,9 @@ an introduction to the principles used in communication networks is given.  topi
 6.  internetworking technologies
 7.  design advanced communication protocols
 
-
 ###  outline
 
--  introduction, application, and transport layer
+-  introduction, application, and transport layer (6 weeks)
     -  course overview
     -  introduction
         - internet: history, core, and edge
@@ -45,7 +44,8 @@ an introduction to the principles used in communication networks is given.  topi
         -  **midterm exam 1**
         -  principles of congestion control
         -  TCP congestion control
--  network and link layer
+
+-  network and link layer (5 weeks)
     -  network layer
         -  network layer services
         -  internet protocol IP and addressing IPv4, IPv6
@@ -59,12 +59,14 @@ an introduction to the principles used in communication networks is given.  topi
         -  multiple access protocols, and LANs
         -  link layer addressing, ARP
         -  specific link layer technologies
--  advanced topics
+
+-  advanced topics (2 weeks)
     -  wireless communications
         -  wireless links, characteristics
         -  IEEE 802.11 wireless LAN (Wi-Fi)
         -  network coding
         -  advanced variations of transport protocols (wireless, data center, etc.)
+
 -  **final exam**
 
 ###  grading
@@ -73,3 +75,10 @@ an introduction to the principles used in communication networks is given.  topi
 -  final exam 25%
 -  homework 25%
 -  quizzes 10%
+
+assigned labs and homeworks are due at the beginning of the class on the date indicated, 
+
+late homework submission policy:  
+-  one day late:  max 75% of grade
+-  two days late:  max 50% of grade
+-  three days late:  max 25% of grade
