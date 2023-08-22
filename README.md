@@ -5,8 +5,8 @@
 1.  [textbook](##textbook)
 2.  [description](##description)
 3.  [topics](##topics)
-4.  [grading](##grading)
-5.  [outline](##outline)
+4.  [outline](##outline)
+5.  [grading](##grading)
 
 ###  textbook
 
@@ -26,12 +26,6 @@ an introduction to the principles used in communication networks is given.  topi
 6.  internetworking technologies
 7.  design advanced communication protocols
 
-###  grading
-
--  2 midterm exams 40%
--  final exam 25%
--  homework 25%
--  quizzes 10%
 
 ###  outline
 
@@ -73,3 +67,9 @@ an introduction to the principles used in communication networks is given.  topi
         -  advanced variations of transport protocols (wireless, data center, etc.)
 -  **final exam**
 
+###  grading
+
+-  2 midterm exams 40%
+-  final exam 25%
+-  homework 25%
+-  quizzes 10%
