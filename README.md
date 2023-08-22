@@ -28,10 +28,10 @@ an introduction to the principles used in communication networks is given.  topi
 
 ###  grading
 
-2 midterm exams 40%
-final exam 25%
-homework 25%
-quizzes 10%
+-  2 midterm exams 40%
+-  final exam 25%
+-  homework 25%
+-  quizzes 10%
 
 ###  outline
 
