@@ -4,9 +4,8 @@
 
 1.  [textbook](##textbook)
 2.  [description](##description)
-3.  [topics](##topics)
-4.  [outline](##outline)
-5.  [grading](##grading)
+3.  [outline](##outline)
+4.  [grading](##grading)
 
 ###  textbook
 
@@ -15,8 +14,6 @@
 ###  description
 
 an introduction to the principles used in communication networks is given.  topics include discussion used of communications networks, network traffic, network impairments, standards, layered reference models for organizing network functions.  local area network technology and protocols are discussed.  link, network, transport layer protocols, and security are introduced.  TCP/IP networks are stressed.  basic concepts of network performance evaluation and wireless communications are studied.  both analytical and simulation techniques are considered.
-
-###  topics
 
 1.  basics of data communication and network architecture
 2.  network layer control and protocol
@@ -28,55 +25,60 @@ an introduction to the principles used in communication networks is given.  topi
 
 ###  outline
 
--  introduction, application, and transport layer (6 weeks)
-    -  course overview
-    -  introduction
-        - internet: history, core, and edge
-    -  application layer
-        -  application level protocols (HTTP, FTP, SMTP/POP3/IMAP, DNS)
-        -  creating network applications (Socket API)
-    -  transport layer
-        -  transport layer services
-        -  multiplexing / demultiplexing
-        -  connectionless transport:  UDP
-        -  principles of reliable data transfer
-        -  connection oriented transport TCP:  reliable transfer, flow control, connection management
-        -  **midterm exam 1**
-        -  principles of congestion control
-        -  TCP congestion control
+####  1.  introduction, application, and transport layer (6 weeks)
+    
+-  introduction
+    - internet: history, core, and edge
 
--  network and link layer (5 weeks)
-    -  network layer
-        -  network layer services
-        -  internet protocol IP and addressing IPv4, IPv6
-        -  routing algorithms:  link-state and distance-vector
-        -  internet routing protocols:  Intra-domain, Inter-domain
-        -  multicast and anycast routing
-        -  **midterm exam 2**
-    -  link layer
-        -  link layer services
-        -  error detection, correction
-        -  multiple access protocols, and LANs
-        -  link layer addressing, ARP
-        -  specific link layer technologies
+-  application layer
+    -  application level protocols (HTTP, FTP, SMTP/POP3/IMAP, DNS)
+    -  creating network applications (Socket API)
 
--  advanced topics (2 weeks)
-    -  wireless communications
-        -  wireless links, characteristics
-        -  IEEE 802.11 wireless LAN (Wi-Fi)
-        -  network coding
-        -  advanced variations of transport protocols (wireless, data center, etc.)
+-  transport layer
+    -  transport layer services
+    -  multiplexing / demultiplexing
+    -  connectionless transport:  UDP
+    -  principles of reliable data transfer
+    -  connection oriented transport TCP:  reliable transfer, flow control, connection management
+    -  **midterm exam 1**
+    -  principles of congestion control
+    -  TCP congestion control
+
+####  2.  network and link layer (5 weeks)
+
+-  network layer
+    -  network layer services
+    -  internet protocol IP and addressing IPv4, IPv6
+    -  routing algorithms:  link-state and distance-vector
+    -  internet routing protocols:  Intra-domain, Inter-domain
+    -  multicast and anycast routing
+    -  **midterm exam 2**
+
+-  link layer
+    -  link layer services
+    -  error detection, correction
+    -  multiple access protocols, and LANs
+    -  link layer addressing, ARP
+    -  specific link layer technologies
+
+####  3.  advanced topics (2 weeks)
+-  wireless communications
+-  wireless links, characteristics
+-  IEEE 802.11 wireless LAN (Wi-Fi)
+-  network coding
+-  advanced variations of transport protocols (wireless, data center, etc.)
 
 -  **final exam**
 
 ###  grading
 
--  2 midterm exams 40%
--  final exam 25%
--  homework 25%
--  quizzes 10%
-
-assigned labs and homeworks are due at the beginning of the class on the date indicated, 
+| unit      | weight        |
+|:-----------|:--------------|
+| midterm 1  | 20%           |
+| midterm 2  | 20%           |
+| final      | 25%           |
+| homework   | 25%           |
+| quizzes    | 10%           |
 
 late homework submission policy:  
 -  one day late:  max 75% of grade
