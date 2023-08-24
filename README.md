@@ -4,8 +4,9 @@
 
 1.  [textbook](##textbook)
 2.  [description](##description)
-3.  [outline](##outline)
-4.  [grading](##grading)
+3.  [schedule](#schedule)
+4.  [outline](##outline)
+5.  [grading](##grading)
 
 ###  textbook
 
@@ -26,7 +27,7 @@ an introduction to the principles used in communication networks is given.  topi
 ###  outline
 
 ####  1.  introduction, application, and transport layer (6 weeks)
-    
+
 -  introduction
     - internet: history, core, and edge
 
