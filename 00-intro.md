@@ -67,12 +67,3 @@ there are many types of communication links, which are made up of different type
 different links can transmit data at different rates, with the transmission rate of a link measured in bits/seconds.
 
 when one end system has data to send to another end system, the sending signal 
-
-
-
-
-
-
-
-
-
