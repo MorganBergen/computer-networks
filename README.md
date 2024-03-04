@@ -16,7 +16,9 @@
 
 ###  description
 
-an introduction to the principles used in communication networks is given.  topics include discussion used of communications networks, network traffic, network impairments, standards, layered reference models for organizing network functions.  local area network technology and protocols are discussed.  link, network, transport layer protocols, and security are introduced.  TCP/IP networks are stressed.  basic concepts of network performance evaluation and wireless communications are studied.  both analytical and simulation techniques are considered.
+this is an introduction to the principles used in communication networks is given.  
+
+topics include discussion used of communications networks, network traffic, network impairments, standards, layered reference models for organizing network functions.  local area network technology and protocols are discussed.  link, network, transport layer protocols, and security are introduced.  TCP/IP networks are stressed.  basic concepts of network performance evaluation and wireless communications are studied.  both analytical and simulation techniques are considered.
 
 1.  basics of data communication and network architecture
 2.  network layer control and protocol
@@ -65,6 +67,7 @@ an introduction to the principles used in communication networks is given.  topi
     -  specific link layer technologies
 
 ####  3.  advanced topics (2 weeks)
+
 -  wireless communications
 -  wireless links, characteristics
 -  IEEE 802.11 wireless LAN (Wi-Fi)
@@ -73,17 +76,3 @@ an introduction to the principles used in communication networks is given.  topi
 
 -  **final exam**
 
-###  grading
-
-| unit      | weight        |
-|:-----------|:--------------|
-| midterm 1  | 20%           |
-| midterm 2  | 20%           |
-| final      | 25%           |
-| homework   | 25%           |
-| quizzes    | 10%           |
-
-late homework submission policy:  
--  one day late:  max 75% of grade
--  two days late:  max 50% of grade
--  three days late:  max 25% of grade
