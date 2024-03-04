@@ -3,7 +3,6 @@
 |  **[back](./README.md)** |    |
 |:-----------------------------|:---|
 | **course** | introduction to communication networks |
-| **date**   | august 24 2023 |
 | **covers** | the internet |
 
 ####  contents
@@ -58,7 +57,6 @@ all of these devices are called hosts or end-systems
 
 -  keyboard
 </details>
-
 
 end systems are connected together by a network of communication links and packet switches
 
