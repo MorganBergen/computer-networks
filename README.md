@@ -6,9 +6,7 @@
 
 1.  [textbook](##textbook)
 2.  [description](##description)
-3.  [schedule](#schedule)
 4.  [outline](##outline)
-5.  [grading](##grading)
 
 ###  textbook
 
@@ -49,7 +47,7 @@ topics include discussion used of communications networks, network traffic, netw
     -  principles of congestion control
     -  TCP congestion control
 
-####  2.  network and link layer (5 weeks)
+####  2.  network and link layer
 
 -  network layer
     -  network layer services
@@ -66,7 +64,7 @@ topics include discussion used of communications networks, network traffic, netw
     -  link layer addressing, ARP
     -  specific link layer technologies
 
-####  3.  advanced topics (2 weeks)
+####  3.  advanced topics
 
 -  wireless communications
 -  wireless links, characteristics
@@ -74,5 +72,4 @@ topics include discussion used of communications networks, network traffic, netw
 -  network coding
 -  advanced variations of transport protocols (wireless, data center, etc.)
 
--  **final exam**
 
