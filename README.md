@@ -97,46 +97,66 @@ computing devices were primarily traditional desktop pcs, linux, workstations, a
 
 now non-traditional iot devices internet of things such as laptops, smartphones, tables, tv's, gaming consoles, thermostats, home security systems, home appliances, watches, eye glasses, cars, traffic control systems, and more are being connected to the internet.
 
-all of these devices are called hosts or end-systems
+devices are called hosts or end systems.  recorded in 2015 there were estimated to have been about 5 billion devices connected to the internet, and the number will reach 25 billion by 2020.  
 
-<details><summary>key</summary>
+###  key pieces of the internet
 
--  host = end system
-
+-  host ( = end system )
 -  server
-
 -  mobile
-
 -  router
-
 -  link-layer switch
-
 -  modem
-
 -  base station
-
 -  smartphone
-
 -  cell phone tower
-
--  tablet
-
+-  tabley
 -  traffic light
-
--  thermostat
-
+- thermostat
 -  fridge
-
 -  flat computer monitor
-
 -  keyboard
-</details>
 
-end systems are connected together by a network of communication links and packet switches
-
-there are many types of communication links, which are made up of different types of physical media, including coaxial cable, copper wire, optical fiber, and radio spectrum
+end systens are connected together by a network of communication links and packet switches.
 
 different links can transmit data at different rates, with the transmission rate of a link measured in bits/seconds.
 
-when one end system has data to send to another end system, the sending signal
+
+###  important terminology
+
+-  communication links
+-  packet switches
+-  transmission rate
+-  packets
+-  routers
+-  link-layer switches
+-  route
+-  path
+-  internet service providers
+-  protocols
+-  transmission control protocol (tcp)
+-  internet protocol
+-  tcp/ip
+-  internet standards
+-  requests for comments
+-  distributed applications
+
+##  a services description
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
