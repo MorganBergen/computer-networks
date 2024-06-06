@@ -182,12 +182,12 @@ $$
 
 ###  packet-switching: store-and-forward
 
--  **packet transmission delay**:  takes L/R seconds to transmit (push out) L-bit packet into link at R bps
+-  **packet transmission delay**:  takes l/r seconds to transmit (push out) l-bit packet into link at r bps
 -  **store and forward**:  entire packet must arrive at router before it can be transmitted on next link
 
 **one-hop numerical example**
--  L = 10 kbits
--  R = 100 mbps
+-  l = 10 kbits
+-  r = 100 mbps
 -  one-hop transmission delay = 0.1 msec
 
 ###  packet-switching:  queuing
@@ -208,16 +208,62 @@ $$
 -  circuit segment idle if not used by call (no sharing)
 -  commonly used in traditional telephone networks
 
-![IMG_1458](https://github.com/MorganBergen/computer-networks/assets/65584733/0da6ae94-f051-4511-90e0-3a10d5af7c41)
+![img_1458](https://github.com/morganbergen/computer-networks/assets/65584733/0da6ae94-f051-4511-90e0-3a10d5af7c41)
+
+**questions**
+
+**1.  what is the maximum number of connections that can be ongoing in the network at any one time?**
+
+the maximum number of connections is the sum of all links, therefore the answer is 60.
+
+**2.  suppose that these maximum number of connections are all ongoing.  what happens when another call connection request arrives to the network, will it be accepted?**
+
+if all connections are full, the request will be blocked, therefore the answer is no.
+
+**3.  suppose that every connection requires 2 consecutive hops, and calls are connected clockwise.  for example a connection can go from a to c, from b to d, from c to a, and from d to b.  with these constraints, what is the maximum number of connections that can be ongoing in the network at any one time?**
+
+find the max between the sum of the bottleneck links for cases a -> c and b -> d, but don't forget about bottleneck links.  so we need to consider the total possible connections considering both paths
+
+the following are the circuit capacities
+
+-  a -> b: 18 circuits
+-  b -> c: 19 circuits
+-  c -> d:  11 circuits
+-  d -> a: 14 circuits
+
+every connection requires 2 consecutive hops in a clockwise direction:
+
+-  sum of a -> c and c -> a is 18 + 11 = 29
+-  sum of b -> d and d -> b is 11 + 14 = 25
+
+therefor the maximum number of ongoing connections in the network at one time is 29.
+
+**4.  suppose that 18 connections are needed from a to c and 10 connections are needed ferom b to d.  can we route these calls through the four links to accommodate all 28 connections?**
+
+yes
+
+###  circuit switching:  fdm and tdm
+
+**frequency division multiplexing fdm**
+-  optical, eletromagnetic frequencies divided into narrow frequency bands
+-  each call allocated its own band, can transmit at max rate of that narrow band
+
+**time division multiplexing tdm**
+-  time divided into slows
+-  each call allocated periodic slots, can transmit at maximum rate of wider frequency band only during its time slots.
 
 
+###  packet switching vs circuit switching
 
+example:  
+-  1 gb/s link
+-  35 users
+-  each user 100 mb/s when active & 10% of the time
 
+question:  how many users can use this network under circuit switching and packet switching
 
-
-
-
-
+-  circuit switching: 10 users
+-  packet switching:  with 35 users, probability > 10 active at same time is less tahn 0.0004
 
 
 
