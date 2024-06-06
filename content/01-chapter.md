@@ -208,6 +208,7 @@ $$
 -  circuit segment idle if not used by call (no sharing)
 -  commonly used in traditional telephone networks
 
+![IMG_1458](https://github.com/MorganBergen/computer-networks/assets/65584733/0da6ae94-f051-4511-90e0-3a10d5af7c41)
 
 
 
