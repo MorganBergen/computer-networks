@@ -236,7 +236,15 @@ every connection requires 2 consecutive hops in a clockwise direction:
 -  sum of a -> c and c -> a is 18 + 11 = 29
 -  sum of b -> d and d -> b is 11 + 14 = 25
 
-therefor the maximum number of ongoing connections in the network at one time is 29.
+therefore the maximum number of ongoing connections in the network at one time is 29.
+
+-  a -> b: 12 circuits
+-  b -> c: 16 circuits
+-  c -> d: 16 circuits
+-  d -> a: 15 circuits
+
+-  sum of a -> c and c -> a is 12 + 16 = 28
+-  sum of b -> d and d -> b is 16 + 15 = 31
 
 **4.  suppose that 18 connections are needed from a to c and 10 connections are needed ferom b to d.  can we route these calls through the four links to accommodate all 28 connections?**
 
@@ -265,22 +273,123 @@ question:  how many users can use this network under circuit switching and packe
 -  circuit switching: 10 users
 -  packet switching:  with 35 users, probability > 10 active at same time is less tahn 0.0004
 
+**is packet switching a winner?**
 
+-  great for bursty data - sometimes has data to send, but at other times not for resource sharing, and simpler which means no call setup
+-  **excessive congestion possible**:  packet delay and loss due to buffer overflow 
+-  protocols needed for reliable data transfer, congestion control
 
+**how to provide circuit like behavior with packey switching?**
+-  it's complicated and we will study various techniques that will try to make packet switching as circuit like as possible
 
+###  internet structure:  a network of networks
 
+-  hosts connect to internet via access internet service providers (isps)
+-  access isps in turn must be inter connected
+-  so that any two hosts anywhere can send packets to each other
+-  resulting network of networks is very complex
+-  evolution driven by economics and national policies
 
+**given millions of access isps, how do we connect them together?**
+-  connect each access isp to one global transit isp?
+-  customer and provider isps have economic agreement
+-  but if one global isp is viable business, there will be competitors...
+-  and regional networks may arise to connect access nets to isps
 
+-  at the center there are a small number of well connected large networks
+-  tier 1 are commerical isps:  (e.g. sprint, at&t, ntt):  national and international coverage
+-  content provider networks (e.g. google, facebook): private network that connects its data centers to internet, often bypassing tier 1, regional isps
 
+###  how do packet delay and loss occur?
 
+-  packets queue in router buffers, waiting for turn for transmission
+-  queue length grows when arrival rate to link temporarily exceeds output link capacity
+-  packet loss occurs when memory to hold queued packets fills up
 
+###  packet delay four sources
 
+$d_{nodal} = d_{proc} + d_{queue} + d_{trans} + d_{prop}$
 
+1.  $d_{proc}$: nodal processing
+-  checks bit errors
+-  determine output link
+-  typically, < mirosec
 
+2.  $d_{queue}$:  queueing delay 
+-  time waiting at output link for transmission
+-  depends on congestion level of router
 
+3.  $d_{trans}$: transmission delay
+-  L: packet length (bits)
+-  R:  link transmission rate (bps)
+-  $d_{trans} = L/R$
 
+4.  $d_{prop}$:  propagation delay:
+-  d: length of phyical link
+-  s: propagation speed (~2x10^8 m/sec)
+-  $d_{prop} = d/s$
 
+###  packet queueing delay
 
+-  a:average packet arrival rate
+-  L: packet length (bits)
+-  R: link bandwidth (bit transmission rate)
 
+$$\frac{L*A}{R}: \frac{\text{arrival rate of bits}}{\text{service rate of bits}}$$
 
+-  $La/R$ ~ $0$:  average queueing delay small
+-  $La/R$ -> $1$:  average queueing delay large
+-  $La/R$ > $1$:  more work arriving is more than can be serviced - average delay infinite
 
+###  real internet delays and routers
+
+-  what do real internet delays and loss look like?
+-  **traceroute program**: provides delay measurement from source to router along end to end internet path towards destination. for all i
+-  sends three packets that will reach router i on path towards destination (qith time to live field value i)
+-  router i will return packets to sender
+-  sender measures time intervals between transmission and reply
+
+###  packet loss
+
+-  queue (aka buffer) preceding link in buffer has finite capacity
+-  packet arriving to full queue dropped (aka lost)
+-  lost packet may be retransmitted by previous node, by source end system or not at all
+
+###  throuput
+-  throughput:  rate (bts/time unit) at which bits are being sent from sender to receiver
+-  instantaneous: rate at given point in time
+-  average: rate over longer period of time
+
+$R_{s} < R_{c}$:  what is the average end to end throughput?
+-  $R_{s}$
+
+$R_{s} > R_{c}$:  what is the average end to end throughput?
+-  $R_{c}$
+
+**bottleneck link**
+-  link on end to end path that constraints end to end throughput
+
+###  quantitative comparison of packet switching and circuit switching
+
+-  **A circuit switching scenario in which $N_{cs}$ users, each requiring a bandwidth of 20 mbps, must share a link of capacity 200 mbps**
+-  **packet switching scenario with $N_{ps}$ users sharing a 200 mbps link, where each user again requires 20 mbps when transmitting, but only needs to transmit 30 percent of the time**
+
+1.  When circuit swqitching is used, what is the maximum number of users that can be supported?
+
+$200/20 = 10$ users
+
+2.  Suppose packet switching is used.  If there are 19 packet switching users, can this many users be supported under circuit switching? Yes or no?
+
+-  each user requires 20 mbps when transmitting
+-  each user transmits only 30% of the time
+-  there are 19 users sharing a 200 mbps link
+
+-  **average bandwidth per user = $20 \text{ mbps} * 0.3 = 6 \text{ mbps}$**
+
+-  if there are $n_{ps} = 19$ users, then the total average bandwidth requirement is 
+
+-  **total average bandwidth = $19 * 6 \text{mbps} = 114 \text{mbps}$**
+
+therefore the total average bandwidth requirement 114 mbps is less than the link capacity 200 mbps, so 19 packet switching users can be supported
+
+3.  Suppose packet switching is used.  What is the probability that a given specific user is transmitting, and remaining users are not transmitting?
