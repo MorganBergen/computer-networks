@@ -393,3 +393,82 @@ $200/20 = 10$ users
 therefore the total average bandwidth requirement 114 mbps is less than the link capacity 200 mbps, so 19 packet switching users can be supported
 
 3.  Suppose packet switching is used.  What is the probability that a given specific user is transmitting, and remaining users are not transmitting?
+
+###  network security
+
+-  internet not originally designed with security in mind
+-  key things to think about:
+-  how bad guys can attack computer networks
+-  how we can defend networks against attacks
+-  how to design architectures that are immune to attacks
+
+###  packet interception
+
+**packet sniffying**
+-  broadcast media (shared ethernet, wireless)
+-  promiscuous network interface reads/records all packets (e.g. including passwords) passing by
+
+**ip spoofing**
+-  injection of packet with false source address
+
+**denial of sevice (dos)**
+-  attackers make resources (server, bandwidth) unavailable to legitimate traffic by overwhelming resource with bogus traffic
+1.  select target
+2.  break into hosts around the network see botnet
+3.  send packets to target from comprised hosts
+
+###  lines of defense
+
+-  authentication: proving you are who you say you are.  cellular networks provides hardware identity via SIM cards, no such hardware assist in traditional internet
+-  confidentiality:  via encryption
+-  integrity checks:  digital signatures prevent/detect tampering
+-  access restrictions:  password-protected vpns
+-  firewalls:  specialized middleboxes in access and core networks.  these are off by default and filter incoming packets to restrict senders, receivers, applications.  detecting/reacting to dos attacks
+  
+###  protocol layers and reference models
+
+**networks are complex with many pieces**
+-  hosts
+-  routers
+-  links of various media
+-  applications
+-  protocols
+-  hardware, software
+
+###  why layering
+
+-  layers:  each layer implements a service, via its own internal layer actions
+-  relying on services provided by layer below
+-  approach to designing/discussing complex systems
+-  explicit structure allows the identification, relationship of system's pieces
+-  layered reference model for discussion
+-  modularization eases maintenance, updating of system
+-  change in layer's service implementation transparent to rest of the system
+-  change in gate procedure doesnt affect rest of the system
+
+###  layered internet protocol stack
+
+1.  **application**:  supporting network applications
+-  https, imap, smtp, dns
+
+2.  **transport**:  process-process data transfer
+-  tcp, udp
+
+3.  **network**: routing of datagrams from source to destination
+-  ip, routing protocols
+
+4.  **link**:  data transfer between neighboring network elements
+-  ethernet, wifi, ppp
+
+5.  **physical**:  bits on the wire
+
+###  isp/osi reference model
+
+two layers not found in internet protocol stack!
+
+-  **presentation**:  allow applications to interpret meaning of data, e.g. encryption, compression, machine specific conventions
+
+-  **session**:  synchronization, checkpointing, recovery of data exchange
+
+###  services, layering and encapsulation
+
