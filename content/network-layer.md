@@ -397,7 +397,7 @@ for a newly arriving host, the dhcp protocol is a four step process.  in this fi
     <img src="./figures/figure4.24.png" width=700px>
 </p>
 
-once the client receives the dhcp ack, the interaction is complete and the clinet can use the dhcp allocated ip address for the lease duration.  since a client may want to use its address beyond the lease's expiration, dhcp also provides a mechanism that allows a client to renew its lease on an ip address.
+once the client receives the dhcp ack, the interaction is complete and the client can use the dhcp allocated ip address for the lease duration.  since a client may want to use its address beyond the lease's expiration, dhcp also provides a mechanism that allows a client to renew its lease on an ip address.
 
 from a mobility aspect dhcp does have one very significant shortcoming.  since a new ip address is obtained from dhcp each time a node connects to a new subnet, a tcp connection to a remote application cannot be maintained as a mobile node moves between subnets.
 
@@ -411,8 +411,56 @@ the nat enabled router does not look like a router to the outside world.  instea
     <img src="./figures/figure4.25.png" width=700px>
 </p>
 
+if all datagrams arriving at the nat router from a wan have the same destination ip address (specifically, that of the wan side interface of the nat router), then how does the router know the internal host to which it should forward a given datagram?  the trick is to use a **nat translation table** at the nat router, and to include port numbers as well as ip addresses in the table entries.
+
+consider the example below suppose a user sitting in a home network behind host `10.0.0.1` requests a web page on some web server (port 80) with ip address `128.119.40.186`.  the host `10.0.0.1` assigns the arbitrary source port number `3345` and sends the datagram to the lan.  the nat router receives the datagram, generates a new source port number `5001` for the datagram, replaces the source ip address with its wan-side ip address `128.76.29.7`, and replaces the original source port number `3345` with the new source port number `5001`.  when generating a new source port number, the nat router can select any source port number that is not currently in the nat translation table.
+
+1.  host `10.0.0.1` sends datagram to `128.119.40.186:80` with source port `3345`
+2.  nat router changes datagram source address from `10.0.0.1`, `3345` to `138.76.29.7`, `5001` and updates the nat translation table
+3.  the web server reply arrives, destination address `138.76.29.7`, `5001`
+
+...
+
+##  ipv6
+
+the internet engineering task force began an effort to develop a successor to the ipv4 protocol.  a prime motivation for this effort was the realization that the 32-bit ipv4 address space was beginning to be used up, with new subnets and ip nodes being attached to the internet (and being allocated unique ip addresses) at a breathtaking rate.  to respond to this need for large ip address space, a new ip protocol, ipv6 was developed.  the designers of ipv6 also took this opportunity to tweat and augment other aspects of ipv4 based on teh accumulated operational experience with ipv4.
+
+###  ipv6 datagram format
+
+the format of the ipv6 datagram is shown in the figure below.
+
+```
+      <----------------------------------------- 32 bits ----------------------------------------->  
+    +-----------------------------------------------------------------------------------------------+
+    |        version   |  traffic class / priority     |                    flow label              |
+    |------------------|-------------------------------|--------------------------------------------|
+    |        payload length (bytes)                    |  next header     |  hop limit              |
+    |------------------|-------------------------------|--------------------------------------------|
+    |                               source ip address (128 bits)                                    |
+    |-----------------------------------------------------------------------------------------------|
+    |                               destination ip address (128 bits)                               |
+    |-----------------------------------------------------------------------------------------------|
+    |                               payload data                                                    |
+    +-----------------------------------------------------------------------------------------------+
+```
+
+-  **version** -  4-bit field identifiers the ip version number
+...
 
 
+**what is missing compared with ipv4?**
+
+-  **no header checksum** to speed processing at routers
+-  **no fragmentation / reassembly** at routers
+-  **no options** available as upper-layer, next-header protocol at router
+
+...
+
+###  transitioning from ipv4 to ipv6
+
+the question comes in to play which is how will the public internet, which is based on ipv4, be transitioned to ipv6?  the problem is that while new ipv6 capable systems can be made backward-compatible, that is, can send, route, and receive ipv4 datagrams, already deployed ipv4 capable systems are not capable of handling ipv4 datagrams.  several options are available.
+
+the approach to ipv4 to ipv4 transition that has been most widely adopted in practice involves **tunneling**.  the basic idea behind tunneling - a key concept with applications in many other 
 
 
 
