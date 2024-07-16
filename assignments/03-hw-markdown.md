@@ -69,6 +69,16 @@ Therefore the average throughput of this TCP connection is $937,500$ bps.
 
 **c.  How long would it take for this TCP connection to reach its maximum window again after recovering from a packet loss?**
 
+The time needed to increase the window size to its maximum is
+$$
+W_{max} = \text{window size / 2} * RTT
+\\~\\~\\
+W_{max} = 125 / 2 * 0.15
+\\~\\~\\
+W_{max} = 9.375 \text{ seconds}
+$$
+
+Therefore the time needed to increase the window size to its maximum is 9.375 seconds.
 
 2.  refer to the figure below, which illustrates the convergence of TCP's AIMD algorithm.  Suppose that instead of a multiplicative decrease, TCP decreased the window size by a constant amount.  Would the resulting AIAD algorithm converge to an equal share algorithm?  Justify your answer using a diagram similar to the figure below.
 
@@ -76,6 +86,9 @@ Therefore the average throughput of this TCP connection is $937,500$ bps.
     <img src="./figure3.56.png" width="600">
 </p>
 
+<p align=center>
+    <img src="./figure.png" width="600">
+</p>
 
 Instead of a multiplicative decrease, if instead the window size was decreased by a constant amount then the AIAD algorithm would not converge to an equal amount.  If both connections were to be decreased by a constant amount the total throughput would never increase to its maximum amount.  if connection 1 were to decrease by a greater amount than connection 2, connection 1 would have no throughput and connection 2 would have all of the throughput.
 
