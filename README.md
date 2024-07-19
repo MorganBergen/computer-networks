@@ -6,9 +6,17 @@
 
 The first course on computer networks.  Includes the basics of computer networking, various protocols, socket programming, etc.  Topics covered include physical layer (wired and wireless), medium access control and data link layers, packet switching and routing (IP), routing protocols, transport layer (TCP, UDP), congestion and flow control, basic network security, and network applications.
 
+###  Sections
+
+1.  [introduction](./content/01-introduction.md)
+2.  [application layer](./content/02-application-layer.md)
+3.  [transport layer](./content/03-transport-layer.md)
+4.  [network later data plane](./content/04-network-layer-data-plane.md)
+5.  [network layer control plane](./content/05-network-layer-control-plane.md)
+
 ##  Learning Outcomes
 
-1.  Descrive the functionality of networking protocols such as TCP, ICMP, IP, and routing protocols.
+1.  Describe the functionality of networking protocols such as TCP, ICMP, IP, and routing protocols.
 2.  Analyze the efficiency of networking protocols by applying concepts from probability theory and statistics.
 3.  Understand algorithms and computer programs to implement the functionality of networking protocols.
 4.  Understand programs using state-of-the-art network and socket programming APIs.
