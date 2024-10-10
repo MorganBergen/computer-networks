@@ -126,17 +126,122 @@ $$d_x(y) = \text{min}_v\{c(x, v) + d_v(y)\}$$
 
 where the $\text{min}_v$ in the equation is taken over all of x's neighbors.  the bellman ford equation is rather intuitive.  indeed, after traveling from x to v, if we then take the least cost path from v to y, the path cost will be $c(x, v) + d_v(y)$.  since we must begin by traveling to some neighbor v, the least cost from x to y is the minimum of $c(x, v) + d_v(y)$ taken over all neighbors v.
 
-let's check for the validity of the equation for source node u to destination node z in the figure below.  the source node u has three neighbors:  node v, x, and w.  by walking along various paths in the graph, it is easy to see that $\text{d}_\text{v}\text{(z)} = 5$, $\text{d}_\text{x}\text{(z)} = 3$, and $\text{d}_\text{w}\text{(z)} = 3$.  plugging these values into the equation along with the costs $\text{c(u, v)} = 2$, $\text
+let's check for the validity of the equation for source node u to destination node z in the figure below.  the source node u has three neighbors:  node v, x, and w.  by walking along various paths in the graph, it is easy to see that $\text{d}_\text{v}\text{(z)} = 5$, $\text{d}_\text{x}\text{(z)} = 3$, and $\text{d}_\text{w}\text{(z)} = 3$.  plugging these values into the equation along with the costs $\text{c(u, v)} = 2$, $\text{c(u, x) = 1}$, $\text{c(u, w) = 5}$ gives us 
+$\text{d}_\text{u}\text{(z)} = \text{min} \{ 2 + 5, 5 + 3, 1 + 3 \} = 4$, which is obviously true and which is exactly what the dijskstra algorithm gave us for the same network.  this quick verification should help relieve any skepticism you may have.
 
 <p>
     <img src="./figures/figure5.3.png">
-</p>s
+</p>
 
+the bellman ford question is not just an intellectual curiosity.  it actually has significant practical importance:  the solution to the bellman ford equation provides the entries in node x's forwarding table.  to see this, let v* be any neighboring node that achieves the minimum in the equation.  then if node x wants to send a packet to node y along a least cost path, it should first forward the packet to node v*.  thus, node x's forwarding table would specify node v* as the next hop router for the ultimate destination y.  another important practical contribution of the bellman ford equation is that it suggests the form of the neighbor to neighbor communication that will take place in the dv algorithm.
 
+the basic idea is as follows.  each node x begins with $\text{D}_\text{x}\text{(y)}$, an estimate of the cost of the least cost path from itself to node y, for all nodes, y in N.  let $\text{D}_\text{x} = [\text{D}_\text{x}\text{(y)} : y \in N]$ be node x's distance vector, which is the vector of cost estimates from x to all other nodes, y in N.  with the dv algorithm, each node x maintains the following routing information:  
 
+-  for each neighbor v, the cost c(x, v) from x to directly attached neighbor, v
+-  node x's distance vector, that is, $\text{D}_\text{x} = [\text{D}_\text{x} \text{(y)} : y \in N]$, containing x's estimate of its cost to all destinations, y, in N.
+-  the distance vectors of each of its neighbors, that is, $\text{D}_\text{v} = [\text{D}_\text{v} \text{(y)} : y \in N]$ for each neighbor v of x
+  
+in the distributed, asynchronous algorithm, from time to time, each node sends a copy of its distance vector to each of its neighbors.  when a node x receives a new distance vector from any of its neighbors w, it saves w's distance vector, and then uses the bellman ford equation to update its own distance vector as follows:
 
+$$\text{D}_\text{x}\text{(y)} = \text{min} \{ \text{c(x, y)} + \text{D}_\text{v}\text{(y)} \} \text{ for each node y in N}$$
 
+if node x's distance vector has changed as a result of this update step, node x will then send its updated distance vector to each of its neighbors, which can in turn update their own distance vectors.  miraculously enough, as long as all the nodes continue to exchange their distance vectors in an asynchronous fashion, each cost estimate $\text{D}_\text{x}\text{(y)}$, the actual cost of the least cost path from node x to node y.
 
+###  distance vector dv algorithm
+
+at each node x
+
+```
+initialization:
+    for all destinations y in N:
+        D_x(y) = c(x, y) /* if y is not a neighbor then c(x, y) = ∞ */
+    for each neighbor w
+        D_w(y) = ? for all destinations y in N
+    for each neighbor w
+        send distance vector D_x = [D_x(y) : y in N] to w
+
+loop
+    wait (until i see a link cost change to some neighbor w or
+          until i receive a distance vector from some neighbor w)
+    
+    for each y in N:
+        D_x(y) = min_v{c(x, v) + D_v(y)}
+
+if D_x(y) changed for any destination y
+    send distance vector D_x = [D_x(y) : y in N] to all neighbors
+
+forever
+```
+
+in the dv algorithm, a node x updates its distance vector estimate when it either sees a cost change in one of its directly attached links or receives a distance vector update from some neighbor.  but update its own forwarding table for a given destination y, what node x really needs to know is not the shortest path distance to y but instead the neighboring node v*(y) that is the next hop router along the shortest path to y.  as you might expect, the next hop router v*(y) is the neighbor v that achieves the minimum line 14 of the dv algorithm.  for each destination y, node x also determines v*(y) and updates its forwarding table for destination y.
+
+recall that the ls algorithm is a centralized algorithm in the sense that it requires each node to first obtain a complete map of the network before running the dijkstra algorithm.  the dv algorithm is decentralized and does not use such global information.  indeed, the only information a node will have is the costs of the links to its directly attached neighbor and information it receives from these neighbors.  each node waits for an update from any neighbor, calculates its new distance vector when receiving an update, and distributes its new distance vector to its neighbors.  dv like algorithms are used in many routing protocols in practice, include the internet's rip, bgp, iso idrp, novell ipx, and the original arpanet.
+
+the figure below illustrates the operation of the dv algorithm for the simple three node network shown at the top of the figure.  the operation of the algorithm is illustrated in a synchronous manner,where all nodes simultaneously receive distance vectors from their neighbors, compute their new distance vectors, and inform their neighbors if their distance vectors have changed.  after studying this example, you should convince yourself that the algorithm operates correctly in an asynchronous manner as well, with node computations and update generation/reception occurring at any time.
+
+<p>
+    <img src="./figures/figure5.6.png">
+</p>
+
+the leftmost column of the figure displays three initial **routing tables** for each of the three nodes.  for example, the table in the upper-left corner is node x's initial routing table.  within a specific routing table, each row is a distance vector - specifically, each node's routing table includes its own distance vector and that of each of its neighbors.  thus, the first row in node x's initial routing table is $\text{D}_\text{x} = [\text{D}_\text{x}\text{(x)}, \text{D}_\text{x}\text{(y)}, \text{D}_\text{x}\text{(z)}] = [0, 2, 7]$.  the second and third rows in this table are the most recently received distance vectors from nodes y and z, respectively.  because at initialization node x has not received anything from node y or z, the entries in the second and third rows are initialized to infinity.
+
+after initialization, each node sends its distance vector to each of its two neighbors.  this is illustrated in the figure by the arrows from the first column of tables to the second column of tables.  for example node x sends its distance vector $D_{x} = [0, 2, 7]$ to both nodes y and z.  after receiving the updates, each node recomputes its own distance vector.  for example, node x computes.
+
+$$\text{D}_\text{{x}}\text{(x)} = 0$$
+
+$$\text{D}_\text{x}\text{(y)} = \text{min} \{ c(x, y) + D_y(y), c(x, z) + D_z(y) = \text{min} \{ 2 + 0, 7 + 1 \} = 2 \}$$
+
+$$\text{D}_\text{x}\text{(z)} = \text{min} \{ c(x, y) + D_y(z), c(x, z) + D_z(z) = \text{min} \{ 2 + 1, 7 + 0 \} = 3 \}$$
+
+the second column therefore displays, for each node, the node's new distance vector along with distance vectors just received from its neighbors.  node, for example, that node x's estimate for the least cost node z $D_x(z)$ has changed from 7 to 3.  also node that for node x, neighboring node y achieves the minimum of the dv algorithm; thus at this stage of the algorithm, we have at node x that v*(y) = y and v*(z) = y.
+
+after the nodes recompute their distance vectors, they again send their updated distance vectors to their neighbors (if there has been a change).  this is illustrated in the figure by the arrows from the second column of tables to the third column of tables.  note that only nodes x adn z send updates:  node y's distance vector didn't change so node y doesn't send an update.  after receiving the updates, the nodes then recompute their distance vectors adn update their routing tables, which are shown in the third column.
+
+the process of receiving updated distance vectors from neighbors, recomputing routing table entries, and informing neighbors of changed costs of the least cost path to a destination continues until no update messages are sent.  at this point, since update messages are sent, no further routing table calculations will occur and the algorithm will enter a quiescent state; that is, all nodes will performing the wait in of the dv algorithm.  the algorithm remains in the quiescent state until a link cost changes, as discussed next.
+
+###  distance vector algorithm:  link cost changes and link failure
+
+when a node running the dv algorithm detects a change in the link cost from itself to a neighbor, it updates its distance vector and, if there's a change in the cost of the least cost path, informs its neighbors of its new distance vector.  the figure below illustrates a scenario where the link cost from y to x changes from 4 to 1.  we focus here only on y' and z's distance table entries to destination x.  the dv algorithm causes the following sequence of events to occur:
+
+-  at time $t_{0}$, y detects the link cost change (the cost has changed from 4 to 1), updates its distance vector, and informs its neighbors of this change since its distance vector has changed.
+
+-  at time $t_{1}$, z receives the update from y and updates its table.  it computes a new least cost to x and sends its new distance vector to its neighbors.
+  
+-  at time $t_{2}$, y receives z's update and updates its distance table.  y's least costs do not change and hence y does not send any message to z.  the algorithm comes to a quiescent state.
+  
+thus, only two iterations are required for the dv algorithm to reach a quiescent state.  the good news about the decreased cost between x and y has propagated quickly through the network.
+
+let's now consider what can happen when a link cost increases.  suppose that the link cost between x and y increases from 4 to 60, as shown in the figure.
+
+<p>
+    <img src="./figures/figure5.7.png">
+</p>
+
+1.  before the link cost changes $D_y(x) = 4$, $D_y(z) = 1$, $D_z(x) = 5$ at time $t_0$ y detects the link cost change y. at time $t_0$, y detects the link cost change.  y computes its new minimum cost path to x to have a cost of 
+
+$$D_y(x) = \text{min} \{ c(y, x) + D_x(x), c(y, z) + D_z(x)\} = \text{min} \{ 60 + 0, 1 + 5 \} = 6$$ 
+
+of course with our global view of the network, we can see that this new cost via z is wrong.  but the only information node y has is that its direct cost to x is 60 and that z has last told y that z could get to x with a cost of 5.  so in order to get to x, y would now route through z, fully expecting that z will be able to get to x with a cost of 5.  as of $t_1$ we have a **routing loop** - in order to get to x, routes through z, and z routes through y.  a routing loop is like a black hole - a packet two nodes forever (or until the forwarding tables are changed).
+
+2.  since node y has computed a new minimum cost to x, it informs z of its new distance vector at time $t_1$
+
+3.  sometimes after $t_1$, z receives y's new distance vector, which indicates that y's minimum cost to x is 6.  z knows iit can get to y with a cost of 1 and hence computes a new least cost to x of $D_z(x) \text{min} \{ 50 + 0, 1 + 6\} = 7$.  since z's least cost to x has increased, it then informs y of its new distance vector at $t_2$.
+
+4.  in a similar manner, after receiving z's new distance vector, y determines $D_y(x) = 8$ and sends z its distance vector.  z then determines $D_z(x) = 9$ and sends y its distance vector, and so on.
+
+how long will this process continue?  you should convince yourself that the loop will persist for 44 iterations - until z eventually computes the cost of its path via y to be greater than 50.  at this point, z will determine that its least cost path to x via its direct connection to x.  y will then route to x via z.  the result of the bad news about the increase in link cost has indeed traveled slowly!  what would have happened if the link cost c(y, x) had changed from 4 to 10,000 and the cost c(z, x) had been 99,999?  because of such scenarios, the problem we have seen is sometimes referred to as the count to infinity problem.
+
+##  intra as routing in the internet:  ospf
+
+in our study of routing algorithms so far, we've viewed the network simply as a collection of interconnected routes.  one router was indistinguishable from another in the sense that all router executed the same routing algorithm to compute routing paths through the entire network.  in practice, this model and its view of a homogenous set of routers all executing the same routing algorithm is simplistic for two important reasons:
+
+-  scale.  as the number of routers becomes large, the overhead involved in communicating, computing, and storing routing information becomes prohibitive.  today's internet consists of hundreds of millions of routers.  storing routing information for possible destinations at each of these routers would clearly require enormous amounts of memory.  the overhead required to broadcast connectivity and link cost updates among all of the routers would be huge.  a distance vector algorithm that iterated among all of the routers would be huge.  a distance vector algorithm that iterates among such a large number of routers would surely never converge.  clearly something must be done to reduce the complexity of route computation in a network as large as the internet.
+
+-  administrative autonomy.  the internet is a network of isps, with each isp consisting of its own network of routers.  an isp generally desires to operate its network as it pleases or to hide aspects of its network's internal organization from the outside.  ideally an organization should be able to operate and administer its network as it wishes, while still being able to connect its network to other outside networks.
+
+both of these problems can be solved by organizing routers into autonomous systems, with each as consisting of a group of routers that are under the same administrative control.  often the routers in an isp and the links that interconnect them, constitute a single as.  some isps however, partition their network into multiple as's.  in particular, some tier-1 isps use one gigantic as for their entire network, whereas other break up their isp into tens of interconnected as's.  an autonomous system is identified by its globally unique autonomous system number.  as numbers, like ip addresses, are assigned by icann regional registries.
+
+routers within the sam eas all run the same routing algorithm and have information about each other.  the routing algorithm running within an autonomous system is called an **intra-autonomous system routing protocol**.
 
 
 
